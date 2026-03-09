@@ -3,10 +3,6 @@ import re
 import fitz  # PyMuPDF
 from PIL import Image, ImageDraw, ImageFont
 
-# ==============================
-# CONFIGURAÇÕES
-# ==============================
-
 COLUNAS = 2
 LINHAS = 3
 FOTOS_POR_PAGINA = COLUNAS * LINHAS
@@ -26,15 +22,9 @@ POSICAO_TEXTO_X_PROP = 0.52
 POSICAO_TEXTO_Y_PROP = 0.162
 ESPACO_TEXTO_IMAGEM = 10
 
-# Fonte padrão Windows
 FONTE_PADRAO = "arial.ttf"
 
 TEMPLATE_IMAGE = None
-
-
-# ==============================
-# FUNÇÕES
-# ==============================
 
 def natural_sort_key(s):
     return [
@@ -77,7 +67,6 @@ def gerar_paginas_com_fotos(fotos, template_image, nome_pasta):
         pagina = template_image.copy()
         draw = ImageDraw.Draw(pagina)
 
-        # Título
         draw.text(
             (
                 int(largura_img * POSICAO_TEXTO_X_PROP),
@@ -117,7 +106,6 @@ def gerar_paginas_com_fotos(fotos, template_image, nome_pasta):
             left = (new_w - slot_w) // 2
             top = (new_h - slot_h) // 2
 
-            # 🔹 Forçar formato paisagem
             if img.height > img.width:
                 img = img.rotate(90, expand=True)
             
@@ -192,7 +180,6 @@ def main(base_dirs, template_path):
         if not os.path.exists(base):
             continue
 
-    # 🔹 Primeiro: gera PDF se houver imagens direto na pasta base
     tem_imagem_base = any(
         f.lower().endswith((".jpg", ".jpeg", ".png"))
         for f in os.listdir(base)
@@ -201,7 +188,6 @@ def main(base_dirs, template_path):
     if tem_imagem_base:
         gerar_pdf_para_pasta(base, template_image)
 
-    # 🔹 Depois: processa subpastas normalmente
     for item in sorted(os.listdir(base)):
         caminho = os.path.join(base, item)
         if os.path.isdir(caminho):

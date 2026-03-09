@@ -22,7 +22,6 @@ class App:
         self.root.geometry("700x580")
         self.root.resizable(False, False)
 
-        # Ícone da janela (opcional - coloque icone.ico na mesma pasta)
         try:
             self.root.iconbitmap("icone.ico")
         except:
@@ -34,11 +33,9 @@ class App:
         self.build_ui()
 
     def build_ui(self):
-        # Container principal
         main_frame = tk.Frame(self.root)
         main_frame.pack(fill="both", expand=True)
 
-        # Área de conteúdo
         content_frame = tk.Frame(main_frame)
         content_frame.pack(fill="both", expand=True)
 
@@ -90,7 +87,6 @@ class App:
             command=self.select_template
         ).pack(pady=5)
 
-        # Barra de progresso
         self.progress = ttk.Progressbar(
             content_frame,
             orient="horizontal",
@@ -109,7 +105,6 @@ class App:
         )
         self.btn_gerar.pack(pady=10)
 
-        # Rodapé fixo
         footer = tk.Label(
             main_frame,
             text="© 2026 ASTETI (POLCAL) - Todos os direitos reservados",
